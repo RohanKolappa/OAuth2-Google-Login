@@ -8,9 +8,10 @@ The process is as follows:
 - Application sends authorization and authentication request to authorization endpoint
 - User is redirected to Google Login page and user receives permissions request 
 - Once permissions are granted and user is authorized, the authorization server sends an authorization code to the application
-- The application then trades the authorization code for an access token and id token from the authorization server using a token request to the token endpoint
-- Then the access token is used to retrieve the relevant information determined by the scopes from the resource server (Google API Server)
+- The application then "trades" the authorization code in exchange for an access token and id token from the authorization server. This is done by the application using a token request to the token endpoint, whereby the token endpoint promptly sends back the access token and id token
 - The id token caches user profile info and provides it to the client. The client consumes this id token and obtains user info from it in order to personalize user experience.
+- The access token is used to retrieve the relevant information determined by the scopes from the resource server (Google API Server), which was the initial goal set out by the user
+
 
 Diagram Explaining What Is Occurring:
 
