@@ -62,7 +62,8 @@ def login():
 
 @app.route("/callback") #receives data from google endpoint
 def callback():
-    flow.fetch_token(authorization_response=request.url) #trades what we received from google endpoint (authorization url and state) for an access token to api
+    flow.fetch_token(authorization_response=request.url) #fetches access token
+                                                         #trades what we received from google endpoint (authorization url and state) for an access token to api
 
     if not session["state"] == request.args["state"]: #check if state received and state in the session match
         abort(500) #if states do not match, then abort request and provide error message indicating that server was prevented from fulfilling request
@@ -77,7 +78,8 @@ def callback():
     id_info = id_token.verify_oauth2_token(
         id_token=credentials._id_token,
         request=token_request,
-        audience=GOOGLE_CLIENT_ID) #the whole point of this is to verify the data, so we create a hook on the token request and call verify_oauth2_token method
+        audience=GOOGLE_CLIENT_ID) #obtains id_token in JWT format
+                                   #the whole point of this is to verify the data, so we create a hook on the token request and call verify_oauth2_token method
                                    #the point of using verify_oauth2_token is to verify an ID Token issued by Google’s OAuth 2.0 authorization server
                                    #the point of using a hook is to create custom claims, thus resulting in a custom token
                                    #the token has information in it called claims, which are declarations about user & token
