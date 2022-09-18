@@ -12,6 +12,7 @@ The process is as follows:
 - The 
 
 Diagram Explaining What Is Occurring:
+
 ![image](https://user-images.githubusercontent.com/81287555/190895807-d30f4f1b-345b-422a-9f81-80b61302911f.png)
 ![image](https://user-images.githubusercontent.com/81287555/190895820-6b9fe376-c673-4f36-bacb-cd4d31721ce5.png)
 
