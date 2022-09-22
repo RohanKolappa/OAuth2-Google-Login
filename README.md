@@ -4,7 +4,7 @@ Overview:
 In this project, my goal was to secure my web application's api calls by using OAuth 2.0, a protocol designed to add authorization to an API. However, instead of simply implementing OAuth 2.0 to secure a REST api, I decided to integrate OpenID Connect (OIDC) and Python's Google OAuth Library to create a Google Login using Authorization Code Flow for my application. This is similar to a mobile app requesting a user for permission to use certain information pertaining to the user, but rather I was building the process behind this entire operation.
 
 
-The process is as follows (skip to bottom if want to read shorter explanation):
+The process is as follows (skip to TLDR section if you want to read shorter explanation):
 
 OAuth 2.0 Authorization Code Flow + OIDC:
 - Registering Web Application with OAuth 2.0 provider (Google in my case):
