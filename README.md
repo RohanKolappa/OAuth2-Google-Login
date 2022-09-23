@@ -4,9 +4,9 @@ Overview:
 In this project, my goal was to secure my web application's api calls by using OAuth 2.0, a protocol designed to add authorization to an API. However, instead of simply implementing OAuth 2.0 to secure a REST api, I decided to integrate OpenID Connect (OIDC) and Python's Google OAuth Library to create a Google Login using Authorization Code Flow for my application. This is similar to a mobile app requesting a user for permission to use certain information pertaining to the user, but rather I was building the process behind this entire operation.
 
 
-The process is as follows (skip to TLDR section if you want to read shorter explanation):
 
-OAuth 2.0 Authorization Code Flow + OIDC:
+Implementing OAuth 2.0 Authorization Code Flow + OIDC (detailed explanation; skip to TLDR section if you want to read shorter explanation):
+
 - Registering Web Application with OAuth 2.0 provider (Google in my case):
 	- Before entering the flow, I first registered my application in the Google Developer Console to use the Authorization Code Flow + OIDC.
 	- Provide Google Developer Console with name of application, where the application is hosted, and a redirect/callback uri
@@ -84,16 +84,6 @@ OAuth 2.0 Authorization Code Flow + OIDC:
 
 
 
-TLDR explanation:
-
-- Application sends authorization and authentication request to authorization endpoint
-- User is redirected to Google Login page and user receives permissions request 
-- Once permissions are granted and user is authorized, the authorization server sends an authorization code to the application
-- The application then "trades" the authorization code in exchange for an access token and id token from the authorization server. This is done by the application using a token request to the token endpoint, whereby the token endpoint promptly sends back the access token and id token
-- The id token (from OIDC) caches user profile info and provides it to the client. The client consumes this id token and obtains user info from it in order to personalize user experience; id tokens follow the JSON web tokens (JWT) format, which is why I use claims in my code about the id token itself
-	- The claims about the authenticated user are usually pre-defined by OIDC, but in my case I created custom claims
-- The access token (from OAuth 2.0) is used to retrieve the relevant information (resource) determined by the scopes from the resource server (Google API Server), which was the initial goal set out by the user
-
 
 Diagram Explaining What Is Occurring:
 
@@ -101,6 +91,7 @@ Diagram Explaining What Is Occurring:
 ![image](https://user-images.githubusercontent.com/81287555/190895820-6b9fe376-c673-4f36-bacb-cd4d31721ce5.png)
 
 
+TLDR explanation of how I approached the project:
 
 I used OIDC for user authentication and OAuth 2.0 for resource access/sharing and authorizing third-party login. It should be noted that OpenID Connect is an identity layer on top of the OAuth 2.0 protocol.
 
@@ -126,4 +117,15 @@ I used OIDC for user authentication and OAuth 2.0 for resource access/sharing an
 					- callback (trades for access token, checks if states match, id token, cache control, redirects to protected resource)
 					- protected resource (my previous Flask application code)
 				- I also added my previous Flask project's code to the protected resource endpoint as well as several functions to the application
-			- A much more thorough understanding of what is going on exists in the the detailed comments in the application code
+			
+		
+			
+TLDR explanation of Authorization Code Flow:
+
+- Application sends authorization and authentication request to authorization endpoint
+- User is redirected to Google Login page and user receives permissions request 
+- Once permissions are granted and user is authorized, the authorization server sends an authorization code to the application
+- The application then "trades" the authorization code in exchange for an access token and id token from the authorization server. This is done by the application using a token request to the token endpoint, whereby the token endpoint promptly sends back the access token and id token
+- The id token (from OIDC) caches user profile info and provides it to the client. The client consumes this id token and obtains user info from it in order to personalize user experience; id tokens follow the JSON web tokens (JWT) format, which is why I use claims in my code about the id token itself
+	- The claims about the authenticated user are usually pre-defined by OIDC, but in my case I created custom claims
+- The access token (from OAuth 2.0) is used to retrieve the relevant information (resource) determined by the scopes from the resource server (Google API Server), which was the initial goal set out by the user
