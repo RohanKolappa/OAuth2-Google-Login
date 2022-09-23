@@ -126,6 +126,8 @@ TLDR explanation of Authorization Code Flow:
 - User is redirected to Google Login page and user receives permissions request 
 - Once permissions are granted and user is authorized, the authorization server sends an authorization code to the application
 - The application then "trades" the authorization code in exchange for an access token and id token from the authorization server. This is done by the application using a token request to the token endpoint, whereby the token endpoint promptly sends back the access token and id token
-- The id token (from OIDC) caches user profile info and provides it to the client. The client consumes this id token and obtains user info from it in order to personalize user experience; id tokens follow the JSON web tokens (JWT) format, which is why I use claims in my code about the id token itself
-	- The claims about the authenticated user are usually pre-defined by OIDC, but in my case I created custom claims
+- The id token (from OIDC) caches user profile info and provides it to the client. The client consumes this id token and obtains user info from it in order to personalize user experience; id tokens follow the JSON web tokens (JWT) format, which is why I use the verify_oauth2_token function to verify the claims inside of id token (making sure it matches what I am looking for)
+	- The claims about the authenticated user are usually pre-defined by OIDC
 - The access token (from OAuth 2.0) is used to retrieve the relevant information (resource) determined by the scopes from the resource server (Google API Server), which was the initial goal set out by the user
+	- In my case I am don't need to use the access token as I am not making use of any other API services nor am I using the profile or email
+	- Instead, I am just authorizing and authenticating the user with a Google Login and once the user is logged in they can access my flask-mysql 		  application
