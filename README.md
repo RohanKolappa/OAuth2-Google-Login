@@ -130,4 +130,4 @@ TLDR explanation of Authorization Code Flow:
 	- The claims about the authenticated user are usually pre-defined by OIDC
 - The access token (from OAuth 2.0) is used to retrieve the relevant information (resource) determined by the scopes from the resource server (Google API Server), which was the initial goal set out by the user
 	- In my case I am don't need to use the access token as I am not making use of any other API services nor am I using the profile or email
-	- Instead, I am just authorizing and authenticating the user with a Google Login and once the user is logged in they can access my flask-mysql 		  application
+	- Instead, I am just authorizing and authenticating the user with a Google Login and once the user is logged in they can access my flask-mysql 		  application (which follows the client-server architecture)
